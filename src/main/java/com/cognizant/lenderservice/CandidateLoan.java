@@ -1,6 +1,9 @@
 package com.cognizant.lenderservice;
 
-public class Candidate {
+import java.time.LocalDate;
+import java.util.Objects;
+
+public class CandidateLoan {
     public int creditScore;
     private float debtToIncome;
     private double savings;
@@ -12,7 +15,7 @@ public class Candidate {
     private boolean decided = false;
     private LocalDate expireDate;
 
-    public Candidate(int creditScore, float debtToIncome, double savings, double requestedAmount) {
+    public CandidateLoan(int creditScore, float debtToIncome, double savings, double requestedAmount) {
         this.creditScore = creditScore;
         this.debtToIncome = debtToIncome;
         this.savings = savings;
@@ -95,5 +98,34 @@ public class Candidate {
 
     public void setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CandidateLoan that = (CandidateLoan) o;
+        return creditScore == that.creditScore && Float.compare(that.debtToIncome, debtToIncome) == 0 && Double.compare(that.savings, savings) == 0 && Double.compare(that.requestedAmount, requestedAmount) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(creditScore, debtToIncome, savings, requestedAmount);
+    }
+
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "creditScore=" + creditScore +
+                ", debtToIncome=" + debtToIncome +
+                ", savings=" + savings +
+                ", requestedAmount=" + requestedAmount +
+                ", qualification='" + qualification + '\'' +
+                ", loan_amount=" + loan_amount +
+                ", status='" + status + '\'' +
+                ", isAccept=" + isAccept +
+                ", decided=" + decided +
+                ", expireDate=" + expireDate +
+                '}';
     }
 }
