@@ -199,10 +199,6 @@ public class LenderTestCases {
 
         lender.approveLoan(loaner, candidateLoan2);
         candidateLoan2.acceptOrRejectOffer(true);
-        boolean expired = candidateLoan2.getExpireDate().compareTo(LocalDate.now())>0
-                && candidateLoan2.getExpireDate().compareTo(LocalDate.now())<=3
-                && candidateLoan2.isDecided()==false;
-       // assertTrue(expired);
         assertFalse(candidateLoan1.isDecided());
 
         List<CandidateLoan> unDecidedCandidates = lender.getUnDecidedLoan();

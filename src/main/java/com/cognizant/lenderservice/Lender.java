@@ -68,11 +68,18 @@ public class Lender {
     public String approveLoan(Loaner loaner, CandidateLoan candidateLoan) throws Exception {
         if(loaners.containsKey(loaner.getSSN())) {
             loaner =  loaners.get(loaner.getSSN());
-            CandidateLoan temp =
-                    loaner.getCandidateLoans()
-                            .stream()
-                            .filter(c-> c.equals(candidateLoan)).findFirst()
-                            .get();
+            CandidateLoan temp = null;
+            for(CandidateLoan c: loaner.getCandidateLoans()){
+                if(candidateLoan.getCreditScore()== c.creditScore &&
+                    candidateLoan.getRequestedAmount()== c.getRequestedAmount()&&
+                            candidateLoan.getDebtToIncome()== c.getDebtToIncome()
+                            &&candidateLoan.getSavings() == c.getSavings()) {
+
+                    temp = c;
+                    break;
+                }
+            }
+
 
             temp = candidateLoan;
             if (Constants.DENIED.equalsIgnoreCase(candidateLoan.getStatus()))
@@ -123,16 +130,7 @@ public class Lender {
 
         }
         return unDecidedLoan;
-//        return candidateLoans.stream()
-//                .filter( c-
-//                )
-//                .peek(c-> {
-//                    System.out.println(c);
-//                    System.out.println(c.getExpireDate().compareTo(LocalDate.now()));
-//                    System.out.println(c.isDecided());
-//
-//                })
-//                .collect(Collectors.toList());
+
 
     }
 }
