@@ -1,16 +1,21 @@
 package com.cognizant.lenderservice;
 
 public class Lender {
-    private double fund;
+    private double availableFund;
+    private double pendingFund;
 
 
-    public double getCurrentFund() {
-        return fund;
+    public double getAvailableFund() {
+        return availableFund;
+    }
+
+    public double getPendingFund() {
+        return pendingFund;
     }
 
     public void depositFund(double amount) throws IllegalArgumentException{
         if(amount>0)
-            this.fund += amount;
+            this.availableFund += amount;
         else
             throw new IllegalArgumentException("Invalid amount");
     }
@@ -28,18 +33,39 @@ public class Lender {
                 candidate.setQualification(Constants.PARTIALLY_QUALIFIED);
                 candidate.setLoan_amount(candidate.getSavings()*4);
             }
-            candidate.setStatus(true);
+            candidate.setStatus(Constants.QUALIFIED);
 
-        }else{         //denied case
+        }else {         //denied case
             candidate.setQualification(Constants.NOT_QUALIFIED);
             candidate.setLoan_amount(0);
-            candidate.setStatus(false);
+            candidate.setStatus(Constants.DENIED);
         }
-        return checkStatus(candidate.getStatus());
-    }
-    private String checkStatus(boolean status){
-        if(status) return Constants.QUALIFIED;
-        return Constants.DENIED;
+        return candidate.getStatus();
     }
 
+    public String approveLoan(Candidate candidate) throws Exception {
+        if(Constants.DENIED.equalsIgnoreCase(candidate.getStatus()))
+            throw new Exception("Cannot proceed");
+        if(availableFund >=candidate.getLoan_amount()){
+            candidate.setStatus(Constants.APPROVED);
+            pendingFund += candidate.getLoan_amount();
+            availableFund -= candidate.getLoan_amount();
+        }
+        else {
+            candidate.setStatus(Constants.ON_HOLD);
+        }
+        return candidate.getStatus();
+    }
+
+    public void processOffer(Candidate candidate) {
+        if(candidate.isAccept()) {
+            pendingFund -= candidate.getLoan_amount();
+            candidate.setStatus(Constants.ACCEPTED);
+        }
+        else {
+            availableFund += candidate.getLoan_amount();
+            pendingFund -= candidate.getLoan_amount();
+            candidate.setStatus(Constants.REJECTED);
+        }
+    }
 }

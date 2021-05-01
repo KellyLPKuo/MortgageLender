@@ -76,6 +76,7 @@ Given there is an approved loan offered more than 3 days ago
 When I check for expired loans
 Then the loan amount is move from the pending funds back to available funds
 And the loan status is marked as expired
+
 8)As a lender, I want to filter loans by status, so that I can have an overview.
 
 Given there are loans in my system

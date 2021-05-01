@@ -7,7 +7,8 @@ public class Candidate {
     private double requestedAmount;
     private String qualification;
     private double loan_amount;
-    private boolean status;
+    private String status;
+    private boolean isAccept;
 
     public Candidate(int creditScore, float debtToIncome, double savings, double requestedAmount) {
         this.creditScore = creditScore;
@@ -64,12 +65,20 @@ public class Candidate {
         this.loan_amount = loan_amount;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
+    public boolean acceptOrRejectOffer(boolean isAccept) {
+        this.isAccept=isAccept;
+        return isAccept;
+    }
+
+    public boolean isAccept() {
+        return isAccept;
+    }
 }

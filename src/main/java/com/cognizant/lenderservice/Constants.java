@@ -8,4 +8,9 @@ public final class Constants {
     public static final String NOT_QUALIFIED="not qualified";
     public static final String PARTIALLY_QUALIFIED="partially qualified";
     public static final String DENIED="denied";
+    public static final String ON_HOLD="on hold";
+    public static final String APPROVED="approved";
+    public static final String ACCEPTED="accepted";
+    public static final String REJECTED="rejected";
+
 }
