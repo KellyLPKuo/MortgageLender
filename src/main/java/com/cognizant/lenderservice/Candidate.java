@@ -9,6 +9,8 @@ public class Candidate {
     private double loan_amount;
     private String status;
     private boolean isAccept;
+    private boolean decided = false;
+    private LocalDate expireDate;
 
     public Candidate(int creditScore, float debtToIncome, double savings, double requestedAmount) {
         this.creditScore = creditScore;
@@ -75,10 +77,23 @@ public class Candidate {
 
     public boolean acceptOrRejectOffer(boolean isAccept) {
         this.isAccept=isAccept;
+        this.decided=true;
         return isAccept;
     }
 
     public boolean isAccept() {
         return isAccept;
+    }
+
+    public boolean isDecided() {
+        return decided;
+    }
+
+    public LocalDate getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(LocalDate expireDate) {
+        this.expireDate = expireDate;
     }
 }
